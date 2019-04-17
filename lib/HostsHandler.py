@@ -37,7 +37,7 @@ class HostsHandler:
         return filePath
 
     #Reads the list of hosts from file and store it in self.HostsList
-    def getHosts(self):
+    def getHostsFromFile(self):
         #Gets filepath
         filePath = self.getHostsFilePath()
         #Opens file
@@ -51,6 +51,10 @@ class HostsHandler:
             #Creates HostElement ( [hostname, ip] pair ) and appends to list 
             self.HostsList.append( HostElement(hostname,ip) )
             dataLine = FILE.readline()
+
+    #Returns hosts list
+    def getHostsList(self):
+        return self.HostsList
 
     #Special method to print a formatted table of HostsList using PrettyTable external library
     def printHostsList(self):
