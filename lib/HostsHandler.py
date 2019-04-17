@@ -1,5 +1,6 @@
 #Library to handle hosts listed in file "hosts" for pyPing application
 import os
+from prettytable import PrettyTable
 
 #Single Element Of HostsList
 class HostElement:
@@ -51,3 +52,9 @@ class HostsHandler:
             self.HostsList.append( HostElement(hostname,ip) )
             dataLine = FILE.readline()
 
+    #Special method to print a formatted table of HostsList using PrettyTable external library
+    def printHostsList(self):
+        t = PrettyTable(['Hostname', 'IP'])
+        for i in range(0 , len(self)):
+            t.add_row([self.HostsList[i].hostname, self.HostsList[i].ip])
+        print t
