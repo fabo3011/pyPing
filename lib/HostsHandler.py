@@ -46,6 +46,10 @@ class HostsHandler:
         dataLine = FILE.readline()
         #Reads line by line untill and stores it in HostsList (hostname & ip)
         while not dataLine is None and not len(dataLine) == 0:
+            #Ignores host when first character in line is a '#'
+            if dataLine[0] == '#':
+                dataLine = FILE.readline()
+                continue
             #Splits data by hostname and ip
             hostname, ip = dataLine.split()
             #Creates HostElement ( [hostname, ip] pair ) and appends to list 
