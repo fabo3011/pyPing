@@ -12,9 +12,12 @@ if __name__ == '__main__':
     #hh.printHostsList()
     #Initialize a ping handler using the hosts list from the host handler 
     ph = PingHandler( hh.getHostsList() )
-    #Pings all hosts in list
-    ph.pingHosts()
-    #Print connection status results for each host in list
-    ph.printPingResults()
+    while True:
+        #Pings all hosts in list
+        ph.pingHosts()
+        #Print connection status results for each host in list
+        ph.printPingResults()
+        #Wait for 1 seconds to ping again
+        time.sleep(1)
 
 
