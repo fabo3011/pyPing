@@ -30,19 +30,23 @@ class PingHandler:
     #Ping successful    -> status = OK
     #Ping unsuccessful  -> status = LOST
     def getConnectionStatusFromStdout(self, stdout):
-        #Split stdout to get the individual lines
-        stdoutLines         = stdout.split('\n')
-        #Use line 4 to determine if ping was successful
-        stdoutStatistics     = stdoutLines[4].split(',') 
-        #Use previous to last argument in stdout statistics corresponding to packet loss
-        #if packets lost = 100% -> status = OK
-        #if packets lost = 0%   -> status = LOST 
-        stdoutStatisticsArgs = stdoutStatistics[len(stdoutStatistics)-2].split()
-        stdoutPacketLoss     = stdoutStatisticsArgs[0]
-        if stdoutPacketLoss == '0%':
-            return 'OK'
-        else:
-            return 'LOST'
+        try:
+            #Split stdout to get the individual lines
+            stdoutLines         = stdout.split('\n')
+            #Use line 4 to determine if ping was successful
+            stdoutStatistics     = stdoutLines[4].split(',') 
+            #Use previous to last argument in stdout statistics corresponding to packet loss
+            #if packets lost = 100% -> status = OK
+            #if packets lost = 0%   -> status = LOST 
+            stdoutStatisticsArgs = stdoutStatistics[len(stdoutStatistics)-2].split()
+            stdoutPacketLoss     = stdoutStatisticsArgs[0]
+            if stdoutPacketLoss == '0%':
+                return 'OK'
+            else:
+                return 'LOST'
+        except:
+            #if ping stdout cant be processed, status = N/A (Not Available)
+            return 'N/A'
 
     #Pings all hosts in list
     def pingHosts(self):
